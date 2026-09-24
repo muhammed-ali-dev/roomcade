@@ -12,3 +12,9 @@ test-results/
 *.tsbuildinfo
 vite.config.js
 vite.config.d.ts
+
+# Local planning documents
+/plan-1-after-experiments.md
+/docs/completion-plan.md
+/roomcade-handoff/roomcade-handoff/plan-1-after-experiments.md
+/roomcade-handoff/roomcade-handoff/plan-1-after-experiments.md:Zone.Identifier

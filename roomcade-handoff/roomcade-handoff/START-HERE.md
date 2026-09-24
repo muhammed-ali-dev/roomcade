@@ -7,7 +7,6 @@ This package captures the approved wireframe after the footer was removed, the f
 - `roomcade-wireframe.html`: standalone browser preview. Extract the ZIP and open this file in a modern desktop browser. Artwork is embedded; icons and some preview utilities load from public CDNs, so an internet connection is recommended.
 - `roomcade-source.html`: editable HTML/CSS/JavaScript fragment, without the standalone preview wrapper. Prefer this for studying and porting the interface.
 - `EXPERIMENT-PHASE-SUMMARY.md`: original user-supplied Codenames feasibility evidence, unchanged.
-- `plan-1-after-experiments.md`: original user-supplied backend/application plan, unchanged.
 - `ARTWORK.md` and `assets/`: original room painting and generated ceiling-extension source, with notes for extending them later.
 
 The standalone preview deliberately restricts network APIs and nested frames. These are preview restrictions, not Roomcade's proposed production security policy. Do not use its wrapper as the production app shell. Host-only design controls may not appear outside the conversation; normal prototype interactions are local.

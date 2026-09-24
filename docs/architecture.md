@@ -63,4 +63,4 @@ House creation and saving the cached response use separate commits. A crash betw
 
 The repository tests exercise a real temporary SQLite database. They check URL validation, room capacity, a persisted lobby, stale deletion, successful approval, and rejection once membership is full. Running with the Go race detector checks the paths exercised by those tests; it does not establish coverage of concurrent WebSocket behavior.
 
-The next useful integration tests are simultaneous approvals for the final member slot, host disconnect/reconnect around the grace deadline, duplicate-tab replacement during a room switch, and restart recovery. Hosted audio and backup restoration also need their own verification. See the [release checklist](completion-plan.md).
+The next useful integration tests are simultaneous approvals for the final member slot, host disconnect/reconnect around the grace deadline, duplicate-tab replacement during a room switch, and restart recovery. Hosted audio and backup restoration also need their own verification.

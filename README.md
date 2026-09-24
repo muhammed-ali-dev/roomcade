@@ -68,4 +68,4 @@ LiveKit integration requires credentials and a separate live-audio verification.
 
 The [Go tests](internal/app/repository_test.go) cover URL validation, room limits, persisted game state, stale game deletion, invitation approval, and member capacity. The [browser tests](e2e/roomcade.spec.ts) cover House creation and navigation on desktop and mobile. Disconnect recovery and multi-client races need broader integration coverage.
 
-See [operations](docs/operations.md) for configuration, backups, and restore procedures, and the [release checklist](docs/completion-plan.md) for remaining hosted verification. Design handoffs and embedding experiments are retained as project history.
+See [operations](docs/operations.md) for configuration, backups, and restore procedures. Design handoffs and embedding experiments are retained as project history.
