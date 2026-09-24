@@ -1,0 +1,14 @@
+node_modules/
+dist/
+/roomcade
+*.db
+*.db-shm
+*.db-wal
+.env
+.DS_Store
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts

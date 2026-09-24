@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roomcade — Codenames iframe test v2</title>
+  <style>
+    :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+    body { margin: 20px; }
+    form, .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    input { flex: 1 1 360px; min-width: 0; padding: 10px; font: inherit; }
+    button, a { padding: 10px; font: inherit; }
+    iframe { width: 100%; height: 720px; border: 1px solid #888; }
+    #frame-slot { margin-top: 12px; min-height: 120px; }
+    #events { max-height: 160px; overflow: auto; padding-left: 24px; }
+  </style>
+</head>
+<body>
+  <h1>Codenames iframe test v2</h1>
+  <p>Use a fresh private lobby. The wrapper records lifecycle events, not game state.</p>
+  <form id="game-form">
+    <label for="game-url">Codenames URL</label>
+    <input id="game-url" type="url" value="https://codenames.game/" required>
+    <button type="submit">Mount game</button>
+    <a id="direct" href="https://codenames.game/" target="_blank"
+       rel="noopener noreferrer">Open directly</a>
+  </form>
+  <div class="controls">
+    <button id="reload" type="button">Reload iframe</button>
+    <button id="unmount" type="button">Unmount iframe</button>
+  </div>
+  <p id="status" role="status">No game mounted.</p>
+  <ol id="events" aria-label="Wrapper event log"></ol>
+  <div id="frame-slot"></div>
+  <script>
+    const form = document.getElementById('game-form');
+    const input = document.getElementById('game-url');
+    const direct = document.getElementById('direct');
+    const slot = document.getElementById('frame-slot');
+    const status = document.getElementById('status');
+    const events = document.getElementById('events');
+
+    const validate = value => {
+      const url = new URL(value);
+      if (url.protocol !== 'https:' || url.hostname !== 'codenames.game' ||
+          url.port || url.username || url.password) {
+        throw new Error('Use an HTTPS URL on codenames.game.');
+      }
+      return url;
+    };
+
+    const log = message => {
+      const item = document.createElement('li');
+      item.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+      events.append(item);
+      events.scrollTop = events.scrollHeight;
+    };
+
+    const mount = rawUrl => {
+      const url = validate(rawUrl);
+      sessionStorage.setItem('codenames-test-url', url.href);
+      input.value = url.href;
+      direct.href = url.href;
+      slot.replaceChildren();
+      const frame = document.createElement('iframe');
+      frame.id = 'game';
+      frame.title = 'Official Codenames Online';
+      frame.src = url.href;
+      frame.addEventListener('load', () => {
+        status.textContent = 'A frame load event fired; inspect the visible game.';
+        log('iframe load event');
+      });
+      slot.append(frame);
+      status.textContent = 'Navigation requested.';
+      log('iframe mounted');
+    };
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      try { mount(input.value); } catch (error) { status.textContent = error.message; }
+    });
+
+    document.getElementById('reload').addEventListener('click', () => {
+      try { mount(input.value); } catch (error) { status.textContent = error.message; }
+    });
+
+    document.getElementById('unmount').addEventListener('click', () => {
+      slot.replaceChildren();
+      status.textContent = 'Iframe unmounted.';
+      log('iframe unmounted');
+    });
+
+    const savedUrl = sessionStorage.getItem('codenames-test-url');
+    if (savedUrl) mount(savedUrl);
+  </script>
+</body>
+</html>

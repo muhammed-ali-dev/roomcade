@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roomcade — Codenames iframe test</title>
+  <style>
+    body { font: 16px system-ui, sans-serif; margin: 20px; }
+    form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    input { flex: 1 1 320px; padding: 10px; font: inherit; min-width: 0; }
+    button { padding: 10px; font: inherit; }
+    iframe { width: 100%; height: 720px; border: 1px solid #aaa; }
+    #status { min-height: 24px; }
+  </style>
+</head>
+<body>
+  <h1>Codenames iframe test</h1>
+  <form id="join">
+    <label for="url">Codenames URL</label>
+    <input id="url" type="url" value="https://codenames.game/" required>
+    <button type="submit">Load embed</button>
+    <a id="direct" href="https://codenames.game/" target="_blank"
+       rel="noopener noreferrer">Open directly</a>
+  </form>
+  <p id="status" role="status">Load the homepage, then a private test-room URL.</p>
+  <iframe id="game" title="Official Codenames Online"></iframe>
+  <script>
+    const form = document.getElementById('join');
+    const frame = document.getElementById('game');
+    const status = document.getElementById('status');
+    const direct = document.getElementById('direct');
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      try {
+        const url = new URL(document.getElementById('url').value);
+        if (url.protocol !== 'https:' || url.hostname !== 'codenames.game' ||
+            url.port || url.username || url.password) {
+          throw new Error('Use an HTTPS URL on codenames.game.');
+        }
+        direct.href = url.href;
+        frame.src = url.href;
+        status.textContent = 'Navigation requested. Verify the visible game and console.';
+      } catch (error) {
+        status.textContent = error.message;
+      }
+    });
+    frame.addEventListener('load', () => {
+      if (!frame.hasAttribute('src')) return;
+      status.textContent = 'A frame load event fired; this does not prove the game works.';
+    });
+  </script>
+</body>
+</html>
