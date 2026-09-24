@@ -13,8 +13,8 @@ test-results/
 vite.config.js
 vite.config.d.ts
 
-# Local planning documents
+# Local planning and design references
 /plan-1-after-experiments.md
-/docs/completion-plan.md
-/roomcade-handoff/roomcade-handoff/plan-1-after-experiments.md
-/roomcade-handoff/roomcade-handoff/plan-1-after-experiments.md:Zone.Identifier
+/Roomcade-Codex-Context.md
+/docs/
+/roomcade-handoff/

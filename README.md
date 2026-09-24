@@ -16,8 +16,6 @@ The interesting part is keeping everyone in agreement when tabs disconnect, two 
 | The host loses their connection | A 30-second grace period allows recovery before authority transfers to a connected member, ordered by join time and member ID. | [hub.go](internal/app/hub.go) |
 | Voice access outlives a room change | Room switching revokes the previous media identity before updating the member's room; failed revocation rejects the switch. | [voice.go](internal/app/voice.go), [hub.go](internal/app/hub.go) |
 
-[Architecture and tradeoffs](docs/architecture.md) covers transaction boundaries, recovery, and the current scaling limits.
-
 ## Try it
 
 Run the app, then open it in two separate browser profiles. Create a House in the first, send its invite to the second, and approve the request as the host. Share a Codenames lobby and switch rooms. Separate profiles matter: two tabs in the same session intentionally replace one another.
@@ -67,5 +65,3 @@ LiveKit integration requires credentials and a separate live-audio verification.
 ## Tests and operations
 
 The [Go tests](internal/app/repository_test.go) cover URL validation, room limits, persisted game state, stale game deletion, invitation approval, and member capacity. The [browser tests](e2e/roomcade.spec.ts) cover House creation and navigation on desktop and mobile. Disconnect recovery and multi-client races need broader integration coverage.
-
-See [operations](docs/operations.md) for configuration, backups, and restore procedures. Design handoffs and embedding experiments are retained as project history.
