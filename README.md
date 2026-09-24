@@ -34,6 +34,21 @@ Open `http://localhost:8080`. The default local database is `roomcade.db`. Voice
 
 For frontend hot reload, run the Go server and `npm run dev` in separate terminals, then open `http://localhost:5173`.
 
+## Deploy
+
+The Go server serves both the built frontend and the API, including WebSockets.
+Deploy the full Docker service; a Vite-only Vercel deployment has no backend.
+
+1. In [Render](https://dashboard.render.com/), choose **New → Blueprint** and connect this repository.
+2. Review the resources from `render.yaml`: one Starter web service and a 1 GB persistent disk. These are paid resources.
+3. Deploy, then open the service's `https://…onrender.com` URL. Use that URL for the app and invitation links.
+
+The Blueprint sets the allowed origin from Render's assigned public URL and stores
+SQLite at `/var/data/roomcade.db`. Voice is optional: add the three `LIVEKIT_*`
+variables later. For a custom domain, update `ALLOWED_ORIGINS` to include its exact
+HTTPS origin. The existing Vercel URL remains frontend-only until separately redirected
+or connected to a backend.
+
 ## Verify
 
 ```sh

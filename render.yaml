@@ -12,15 +12,14 @@ services:
       - key: SECURE_COOKIES
         value: "true"
       - key: ALLOWED_ORIGINS
-        sync: false
+        fromService:
+          type: web
+          name: roomcade
+          envVarKey: RENDER_EXTERNAL_URL
       - key: METRICS_TOKEN
         generateValue: true
-      - key: LIVEKIT_URL
-        sync: false
-      - key: LIVEKIT_API_KEY
-        sync: false
-      - key: LIVEKIT_API_SECRET
-        sync: false
+      # Optional: add LIVEKIT_URL, LIVEKIT_API_KEY, and LIVEKIT_API_SECRET
+      # in the dashboard when enabling voice.
     disk:
       name: roomcade-data
       mountPath: /var/data
